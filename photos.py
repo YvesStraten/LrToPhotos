@@ -1,69 +1,32 @@
-#!/usr/bin/env python3
+class PhotoEntity:
+    def __init__(self, name, keywords: list[str]) -> None:
+        self.filename = name
+        self.keywords = keywords
 
-import os
-import sys
-import osxphotos
-from osxphotos.cli.batch_edit import photoscript_photo
+    def getFileName(self) -> str:
+        return self.filename
 
-from lrtools.lrcat import LRCatDB, LRCatException
-from lrtools.lrselectgeneric import LRSelectException
-from lrtools.display import display_results
+    def getKeywords(self) -> list[str]:
+        return self.keywords
 
-
-def main() -> None:
-    try:
-        path = os.path.expanduser("~/Downloads/Lightroom Catalog.lrcat")
-        lrdb = LRCatDB(path)
-    except LRCatException:
-        print("Could not access")
-
-    columns = "name,keywords"
-
-    try:
-        rows = lrdb.lrphoto.select_generic(columns).fetchall()
-
-    except LRSelectException:
-        print("No photo")
+    def __str__(self) -> str:
+        return f"Photo with filename {self.filename} and keywords {self.keywords}"
 
 
+class PhotoList:
+    def __init__(self) -> None:
+        self.photos = []
 
-    counter = 0
-    photosWithKeywords = [  ]
+    def addPhoto(self, photo: PhotoEntity) -> None:
+        self.photos.append(photo)
 
-    for row in rows:
+    def setPhotos(self, photos: list[PhotoEntity]) -> None:
+        self.photos = photos
 
-        if row[1] != None:
-            photosWithKeywords.append([row[0], row[1]])
+    def getPhotosWithKeywords(self) -> list[PhotoEntity]:
+        toReturn = []
+        for photo in self.photos:
+            if len(photo.keywords) > 0:
+                toReturn.append(photo)
 
-
-            counter += 1
-
-    print(counter)
-
-    sort = sorted(photosWithKeywords, key=lambda field: field[1])
-    # for photo in photosWithKeywords:
-    #     print("filename:", photo[0], "Tags: ", photo[1])
-    #     # for index, field in enumerate(row):
-    #     #     print(index)
-    #     #     print(field)
-    #     #
-    for field in sort:
-        for index, _ in enumerate(field):
-            print("filename:", field[0], "Tags: ", field[1])
-
-    # path = os.path.expanduser("~/Pictures/Test.photoslibrary")
-    # photos = osxphotos.PhotosDB(path)
-
-    # for photo in photos.photos():
-    #     editable = photoscript_photo(photo)
-    #     editable.keywords = [ "nlah", "hello" ]
-
-    # # Remove the object, and refresh db
-    # del photos
-
-    # photos = osxphotos.PhotosDB(path)
-
-    # for photo in photos.photos():
-    #     print(photo.keywords)
-
-main()
+        return toReturn

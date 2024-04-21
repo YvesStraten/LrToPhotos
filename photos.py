@@ -1,5 +1,5 @@
 class PhotoEntity:
-    def __init__(self, name, keywords: list[str]) -> None:
+    def __init__(self, name: str, keywords: list[str]) -> None:
         self.filename = name
         self.keywords = keywords
 
@@ -12,6 +12,9 @@ class PhotoEntity:
     def __str__(self) -> str:
         return f"Photo with filename {self.filename} and keywords {self.keywords}"
 
+    def __eq__(self, other) -> bool:
+        return self.filename == other.filename
+
 
 class PhotoList:
     def __init__(self) -> None:
@@ -22,6 +25,14 @@ class PhotoList:
 
     def setPhotos(self, photos: list[PhotoEntity]) -> None:
         self.photos = photos
+
+    def getPhotos(self) -> list[PhotoEntity]:
+        toReturn = [  ]
+
+        for photo in self.photos:
+            toReturn.append(photo)
+
+        return toReturn
 
     def getPhotosWithKeywords(self) -> list[PhotoEntity]:
         toReturn = []

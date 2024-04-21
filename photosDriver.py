@@ -31,7 +31,6 @@ def transferKeywords(applePath: str, LightRoomPath:str) -> None:
     photosList = []
 
     for row in rows:
-
         if row[1] == None:
             photosList.append(PhotoEntity(row[0], []))
         else:
@@ -39,28 +38,26 @@ def transferKeywords(applePath: str, LightRoomPath:str) -> None:
 
             photosList.append(PhotoEntity(row[0], keywordsArr))
 
-    Catalog = PhotoList()
+    LrCatalog = PhotoList()
 
-    Catalog.setPhotos(photosList)
+    LrCatalog.setPhotos(photosList)
 
-    photosWithKeywords = Catalog.getPhotosWithKeywords()
-    for photo in photosWithKeywords:
-        print(photo)
+    photosWithKeywords = LrCatalog.getPhotosWithKeywords()
 
     print("Number of photos to transfer:", len(photosWithKeywords))
 
-    # for photo in photos.photos():
-    #     editable = photoscript_photo(photo)
-    #     editable.keywords = [ "nlah", "hello" ]
+    counter = 1
 
-    # # Remove the object, and refresh db
-    # del photos
+    for toTransfer in photosWithKeywords:
+        print(f"Processing {toTransfer.filename} ({counter}/{len(photosWithKeywords)})")
 
-    # photos = osxphotos.PhotosDB(path)
+        for photo in photos.photos():
+            if toTransfer.filename == photo.filename:
+                editable = photoscript_photo(photo)
 
-    # for photo in photos.photos():
-    #     print(photo.keywords)
+                editable.keywords = toTransfer.keywords
 
+        counter += 1
 
 def main() -> None:
     args = sys.argv

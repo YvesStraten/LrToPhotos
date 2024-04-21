@@ -1,0 +1,44 @@
+{
+  "nodes": {
+    "Lightroom-SQL-tools": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1690299129,
+        "narHash": "sha256-uAQDwP969/qSFeXbDSFi7i5yqZoKFKm/nGlAYmwNvTs=",
+        "owner": "fdenivac",
+        "repo": "Lightroom-SQL-tools",
+        "rev": "0f8cbbccb0bbab36703d40f28fd141003692df56",
+        "type": "github"
+      },
+      "original": {
+        "owner": "fdenivac",
+        "repo": "Lightroom-SQL-tools",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1713596654,
+        "narHash": "sha256-LJbHQQ5aX1LVth2ST+Kkse/DRzgxlVhTL1rxthvyhZc=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "fd16bb6d3bcca96039b11aa52038fafeb6e4f4be",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "Lightroom-SQL-tools": "Lightroom-SQL-tools",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
